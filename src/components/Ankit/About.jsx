@@ -5,13 +5,13 @@ import {useNavigate} from "react-router-dom";
 
 
 export default function About() {
-    
-   const navigate = useNavigate()
-
+   
+   const navigate = useNavigate();
+   
    const handleClick=()=>{
     navigate("/products")
    }
-
+   
 
   return (
     <div>

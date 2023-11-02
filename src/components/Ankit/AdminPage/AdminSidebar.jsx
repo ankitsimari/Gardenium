@@ -17,12 +17,13 @@ import styled from 'styled-components';
 
 
 const AdminSidebar = ({children}) => {
+    const [filter,setFilter] = useState("/main")
     const[isOpen ,setIsOpen] = useState(false);
     const toggle = () => setIsOpen (!isOpen);
     const navigate = useNavigate()
     const menuItem=[
         {
-            path:"/",
+            path:"/main",
             name:"Dashboard",
             icon:<FaTh/>
         },
@@ -63,35 +64,35 @@ const AdminSidebar = ({children}) => {
         }
     ]
 
-    const handleAdminLogout = ()=>{
-        localStorage.setItem("Admin",false);
-        navigate("/")
+    const handleSet = (e)=>{
+
+        setFilter(e)
     }
 
 
 
-
+console.log(filter)
     return (
-        <DIV className=" AdminContainer">
-           <div style={{width: isOpen ? "200px" : "50px"}} className="AdminSidebar">
+        <DIV className="AdminContainer d-flex">
+           <div style={{width: isOpen ? "200px" : "50px"}} className="AdminSidebar whiteBg">
                <div className="top_section">
-                   <h1 style={{display: isOpen ? "block" : "none"}} className="logo">EcoFood</h1>
+                   <h1 style={{display: isOpen ? "block" : "none"}} className="logo text-white">Admin</h1>
                    <div style={{marginLeft: isOpen ? "50px" : "0px"}} className="bars">
                        <FaBars onClick={toggle}/>
                    </div>
                </div>
                {
                    menuItem.map((item, index)=>(
-                       <NavLink to={item.path} key={index} className="link" activeclassName="active">
+                       <div value={item.path} key={index} className="link" activeclassName="active" onClick={()=>handleSet(item.path)}>
+                        
                            <div className="icon">{item.icon}</div>
                            <div style={{display: isOpen ? "block" : "none"}} className="link_text">{item.name}</div>
-                       </NavLink>
+                       </div>
                    ))
-               }
-               
-               {/* <button onClick={handleAdminLogout} className='link border-0 '><TbLogout2 className="icon"/></button> */}
+               }              
+
            </div>
-           <main>{children}</main>
+           <main >{filter=="/main"?"Home":"Other"}</main>
         </DIV>
     );
 };
@@ -100,11 +101,7 @@ export default AdminSidebar;
 
 
 const DIV=styled.div`
-    /* *{
-    margin:0;
-    padding:0;
-    text-decoration: none;
-} */
+
 .AdminContainer{
     display:flex;
 }
@@ -113,8 +110,7 @@ main{
     padding: 20px;
 }
 .AdminSidebar{
-    background: #DC3545;
-    /* background:#1A73E8; */
+    background-color: var(--first-color);
     color: #fff;
     height: 100vh;
     width: 200px;
@@ -143,18 +139,16 @@ main{
 }
 .link:hover{
     background: white;
-    color: #DC3545;
+    color: var(--first-color);
     transition: all 0.5s;
 }
 .active{
     background: white;
-    color: #DC3545;
+    color: var(--first-color);
 }
 .icon, .link_text{
     font-size: 20px;
 }
 
-/* button{
-    background-color: #DC3545;
-} */
+
 `

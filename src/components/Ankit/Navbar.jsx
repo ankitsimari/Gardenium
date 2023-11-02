@@ -1,8 +1,9 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation, useSearchParams } from "react-router-dom";
 // import User from "../Login/User";
 import React, { useEffect, useRef } from "react";
 import HamburgerIcon from "./HamburgerIcon";
 import {GiHamburgerMenu} from "react-icons/gi"
+
 
 export default function Navbar() {
   const [currentTheme, setCurrentTheme] = React.useState("dark");
@@ -46,9 +47,11 @@ export default function Navbar() {
     window.scrollTo(0, 0);
   };
 
+const location = useLocation();
+console.log(location.pathname)
   return (
-    <>
-      <nav className="navbar navbar-expand-lg  sticky-top whiteBg">
+    <div style={{display:location.pathname=="/contact"?"none":""}}>
+      <nav className="navbar navbar-expand-lg sticky-top whiteBg"  >
         <div className="container text-black text-center text-md-start ">
           <Link
             onClick={handleTop}
@@ -78,6 +81,7 @@ export default function Navbar() {
           >
             {/* <span className="navbar-toggler-icon"></span> */}
             {/* <HamburgerIcon /> */}
+            {/* <GiHamburgerMenu /> */}
             <GiHamburgerMenu className="fs-1 " style={{color:"rgb(62,101,83)"}}/>
           </button>
           <div className="collapse navbar-collapse" id="navbarText">
@@ -141,6 +145,6 @@ export default function Navbar() {
           </div>
         </div>
       </nav>
-    </>
+    </div>
   );
 }

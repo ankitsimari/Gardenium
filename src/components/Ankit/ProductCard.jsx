@@ -9,11 +9,11 @@ import product6 from "./img/product6.png"
 export default function ProductCard() {
   return (
     <DIV>
-      <div className='container'>
+      <div className='container mt-5 pt-2'>
         <div className="row">
           <div className="col-md-2 ">
             <div>
-              <h3 className='mt-5 pt-5'>Category</h3>
+              <h3 className='mt-5 pt-5 '>Category</h3>
               <span className='d-flex mt-4 p-0 m-0'>
               <input type="checkbox" className=' p-0 m-0'/>
               <label className='p-0 m-0 ms-3'>Flower</label>
