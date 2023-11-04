@@ -63,6 +63,11 @@ body{
   width: 100%;
 }
 
+.authBtn{
+  background-color: var(--first-color);
+  color: #FFF;
+}
+
 .nav-link.active {
   color: var(--first-color) !important;
   border-bottom: 2px solid var(--first-color);
@@ -71,6 +76,8 @@ body{
 .firstColor{
   color: var(--first-color);
 }
+
+
 
 .themeBg{
   background-color: var(--first-color-light);

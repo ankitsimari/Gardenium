@@ -5,6 +5,9 @@ import ProductSection from '../components/Ankit/ProductSection'
 import AboutSection from '../components/Ankit/AboutSection'
 import AdminSidebar from '../components/Ankit/AdminPage/AdminSidebar'
 import ContactSection from '../components/Ankit/ContactSection'
+import Login from '../components/Ankit/Login'
+import Signup from '../components/Ankit/Signup'
+import LoginPage from '../components/Ankit/LoginPage'
 
 export default function AllRoutes() {
   return (
@@ -13,7 +16,9 @@ export default function AllRoutes() {
             <Route path='/' element={<Home/>}/>
             <Route path='/products' element={<ProductSection/>} />
             <Route path='/about' element={<AboutSection/>} />
-            <Route path='/contact' element={<ContactSection/>} />
+            <Route path='/contact' element={<Login/>} />
+            <Route path='/signup' element={<Signup/>} />
+            <Route path='/loginPage' element={<LoginPage/>} />
             
         </Routes>
     </div>

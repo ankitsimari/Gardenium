@@ -1,4 +1,4 @@
-import { Link, NavLink, useLocation, useSearchParams } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate, useSearchParams } from "react-router-dom";
 // import User from "../Login/User";
 import React, { useEffect, useRef } from "react";
 import HamburgerIcon from "./HamburgerIcon";
@@ -10,6 +10,7 @@ export default function Navbar() {
   const themeButtonRef = useRef(null);
   const darkTheme = "dark-theme";
   const iconTheme = "ri-sun-line";
+  const navigate = useNavigate()
 
   const selectedTheme = localStorage.getItem("selected-theme");
   const selectedIcon = localStorage.getItem("selected-icon");
@@ -47,10 +48,19 @@ export default function Navbar() {
     window.scrollTo(0, 0);
   };
 
+  const handleLoginNavigation = () => {
+navigate("/loginPage")
+  }
+
 const location = useLocation();
 console.log(location.pathname)
   return (
-    <div style={{display:location.pathname=="/contact"?"none":""}}>
+
+    //     <div style={{display:location.pathname=="/contact"?"none":""}}>
+
+
+
+    <div>
       <nav className="navbar navbar-expand-lg sticky-top whiteBg"  >
         <div className="container text-black text-center text-md-start ">
           <Link
@@ -125,6 +135,9 @@ console.log(location.pathname)
               </li>
             </ul>
             <div className="d-flex flex-column flex-lg-row">
+
+            <a onClick={handleLoginNavigation} style={{cursor:"pointer"}} className=" fw-bold nav__link px-4 m-3 m-lg-0 mx-lg-3" to="/login">Login</a>
+        
               {/* <a href="./login.html" className="btn btn-1 fw-bold  px-4 m-3 m-lg-0 mx-lg-3">Login</a> */}
               {/* <NavLink to="/login" >
           

@@ -4,7 +4,8 @@ import Faq from "./components/Ankit/Faq";
 import Footer from "./components/Ankit/Footer";
 
 import { useEffect } from "react";
-import AllRoutes from "./components/Ankit/Routes/AllRoutes";
+import AllRoutes from "./Routes/AllRoutes";
+
 
 function App() {
   // useEffect(()=>{
