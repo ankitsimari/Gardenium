@@ -8,6 +8,8 @@ import ContactSection from '../components/Ankit/ContactSection'
 import Login from '../components/Ankit/Login'
 import Signup from '../components/Ankit/Signup'
 import LoginPage from '../components/Ankit/LoginPage'
+import SingleProductPage from '../components/Ankit/SingleProductPage'
+import User from '../components/Ankit/User'
 
 export default function AllRoutes() {
   return (
@@ -18,7 +20,9 @@ export default function AllRoutes() {
             <Route path='/about' element={<AboutSection/>} />
             <Route path='/contact' element={<Login/>} />
             <Route path='/signup' element={<Signup/>} />
-            <Route path='/loginPage' element={<LoginPage/>} />
+            <Route path='/loginPage' element={<Login/>} />
+            <Route path='/user' element={<User/>} />
+            <Route path='/signlePage/:id' element={<SingleProductPage/>} />
             
         </Routes>
     </div>

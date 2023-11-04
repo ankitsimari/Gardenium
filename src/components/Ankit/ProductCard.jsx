@@ -1,36 +1,82 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import product1 from "./img/product1.png";
-import product2 from "./img/product2.png";
-import product3 from "./img/product3.png";
-import product4 from "./img/product4.png";
-import product5 from "./img/product5.png";
-import product6 from "./img/product6.png";
+import { useDispatch, useSelector } from "react-redux";
+import { getDataFunction } from "../../Redux/ProductRoute/Action";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import Swal from 'sweetalert2';
+import { useNavigate } from "react-router-dom";
+import Loader from "./Loader";
+
+
 export default function ProductCard() {
-  const [data, setData] = useState([]);
-
-  const getData = () => {
-    axios
-      .get("http://localhost:8080/plants/?page=2&limit=6")
-      .then((res) => {
-        console.log(res.data);
-        setData(res.data.plants);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
+  const [page, setPage] = useState(1);
+  const data = useSelector((state) => state.PlantReducer.plants);
+  const length = useSelector((state) => state.PlantReducer.plants.length);
+  const loading = useSelector((state) => state.PlantReducer.isLoading);
+  const totalPage = useSelector((state) => state.PlantReducer.totalPage);
   const all = useSelector((state) => state);
   console.log(all);
+  console.log(totalPage);
+  const paginationArray = new Array(totalPage).fill(0);
+  const Total = Math.ceil(length / 6);
+  const handlePage = (index) => {
+    setPage(index + 1);
+    window.scrollTo(0, 0);
+  };
+
+  const handleNext = () => {
+    if (page < length-1) {
+      setPage((prev) => prev + 1);
+    }
+    window.scrollTo(0, 0);
+  };
+  const handlePrev = () => {
+    if (page > 1) {
+      setPage((prev) => prev - 1);
+    }
+    window.scrollTo(0, 0);
+  };
+
+  const navigate = useNavigate()
+
+  const handleAddToCart = (obj) => {
+    axios.post(`http://localhost:8080/cart/add`,obj).then((res)=>{
+    console.log(res.data);
+    if(res.data.err=="login_First"){
+      navigate("/loginPage")
+    }else{
+      Swal.fire({
+        title: 'Added to Cart',
+        text: 'Product Added to Cart Successfully!',
+        icon: 'success', // Set the icon to 'success'
+        confirmButtonColor: 'rgb(62,101,83)'
+      });
+    }
+
+    }).catch(err=>{
+      console.log(err)
+    
+    })
+  }
+
+  const handleSignlePage = (id)=>{
+    navigate(`/signlePage/${id}`)
+  }
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    getData();
-  }, []);
+    dispatch(getDataFunction(page));
+  }, [page]);
 
-  console.log(data);
+  useEffect(()=>{
+    window.scrollTo(0, 0);
+  },[])
+
+  // console.log(data);
+  if (loading) {
+    return <Loader/>;
+  }
 
   return (
     <DIV>
@@ -38,7 +84,7 @@ export default function ProductCard() {
 
       <div className="container mt-5 pt-2">
         <div className="row">
-          <div className="col-md-2 ">
+          <div className="col-md-2 d-none d-md-grid filter_part">
             <div>
               <h3 className="mt-5 pt-5 ">Category</h3>
               <span className="d-flex mt-4 p-0 m-0">
@@ -84,23 +130,62 @@ export default function ProductCard() {
               <section className="product " id="products">
                 <div className="product__container grid">
                   {data.length > 0 &&
-                    data.map((e) => (
-                      <article className="product__card">
+                    data.map((e, index) => (
+                      <article className="product__card" key={index}>
                         <div className="product__circle"></div>
 
                         <img src={e.image} alt="" className="product__img" />
 
-                        <h3 className="product__title">{e.name}</h3>
+                        <h3 className="product__title">{e.title}</h3>
+        
 
                         <span className="product__price"> ₹5{e.price}</span>
 
-                        <button className="button--flex product__button">
+                        <button className="button--flex product__button" onClick={()=>handleSignlePage(e._id)}>
                           <i className="ri-shopping-bag-line"></i>
                         </button>
                       </article>
                     ))}
                 </div>
               </section>
+            </div>
+
+            {/* pagination */}
+            <div className="d-flex justify-content-center">
+              <button
+                disabled={page == 1}
+                className="pageBtn rounded "
+                onClick={handlePrev}
+              >
+                Prev
+              </button>
+              {paginationArray.map((item, index) => (
+                <button
+                  className="rounded"
+                  style={{
+                    backgroundColor:
+                      page === index + 1 ? "rgb(62,101,83)" : "transparent",
+                    padding: "5px 10px",
+                    border:
+                      page === index + 1
+                        ? "1px solid rgb(62,101,83)"
+                        : "1px solid gray",
+                    margin: "2px",
+                    color: page === index + 1 ? "white" : null,
+                  }}
+                  key={index}
+                  onClick={() => handlePage(index)}
+                >
+                  {index + 1}
+                </button>
+              ))}
+              <button
+                disabled={page == length-1}
+                className="pageBtn rounded px-2"
+                onClick={handleNext}
+              >
+                Next
+              </button>
             </div>
           </div>
         </div>
@@ -110,6 +195,14 @@ export default function ProductCard() {
 }
 
 const DIV = styled.div`
+.filter_part{
+  position:fixed;
+  top: 80px;
+}
+.col-md-10{
+  margin-left:220px;
+}
+
   .product__description {
     text-align: center;
   }
@@ -179,6 +272,9 @@ const DIV = styled.div`
       grid-template-columns: 0.6fr;
       justify-content: center;
     }
+    .col-md-10{
+  margin-left:0px;
+}
   }
 
   @media screen and (min-width: 576px) {
@@ -190,6 +286,9 @@ const DIV = styled.div`
       justify-content: center;
       column-gap: 5rem;
     }
+    .col-md-10{
+  margin-left:0px;
+}
   }
 
   /* For large devices */
@@ -213,5 +312,8 @@ const DIV = styled.div`
     .product__price {
       font-size: var(--normal-font-size);
     }
+    .col-md-10{
+  margin-left:150px;
+}
   }
 `;

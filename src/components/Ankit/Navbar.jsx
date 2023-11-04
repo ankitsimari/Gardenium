@@ -3,6 +3,7 @@ import { Link, NavLink, useLocation, useNavigate, useSearchParams } from "react-
 import React, { useEffect, useRef } from "react";
 import HamburgerIcon from "./HamburgerIcon";
 import {GiHamburgerMenu} from "react-icons/gi"
+import { useSelector } from "react-redux";
 
 
 export default function Navbar() {
@@ -16,6 +17,12 @@ export default function Navbar() {
   const selectedIcon = localStorage.getItem("selected-icon");
 
   const [currentIcon, setCurrentIcon] = React.useState(getCurrentIcon());
+
+
+  const isAuth = useSelector((state)=>state.AuthReducer.isAuth);
+  console.log(isAuth)
+
+
 
   useEffect(() => {
     if (selectedTheme) {
@@ -52,6 +59,9 @@ export default function Navbar() {
 navigate("/loginPage")
   }
 
+  const handleUserNavigation = () => {
+    navigate("/user")
+  }
 const location = useLocation();
 console.log(location.pathname)
   return (
@@ -136,7 +146,7 @@ console.log(location.pathname)
             </ul>
             <div className="d-flex flex-column flex-lg-row">
 
-            <a onClick={handleLoginNavigation} style={{cursor:"pointer"}} className=" fw-bold nav__link px-4 m-3 m-lg-0 mx-lg-3" to="/login">Login</a>
+        { isAuth? <a onClick={handleUserNavigation} style={{cursor:"pointer"}}  className=" fw-bold nav__link px-4 m-3 m-lg-0 mx-lg-3" >User</a> :   <a onClick={handleLoginNavigation} style={{cursor:"pointer"}} className=" fw-bold nav__link px-4 m-3 m-lg-0 mx-lg-3" to="/login">Login</a>}
         
               {/* <a href="./login.html" className="btn btn-1 fw-bold  px-4 m-3 m-lg-0 mx-lg-3">Login</a> */}
               {/* <NavLink to="/login" >
@@ -145,6 +155,7 @@ console.log(location.pathname)
           {isAuth?<User/>:<Button  className="btn btn-2 fw-bold px-4 mx-3 mx-lg-0  me-xl-5">Register</Button>}
           </NavLink> */}
               {/* <Button  className="btn btn-2 fw-bold px-4 mx-3 mx-lg-0  me-xl-5">{isAuth?"UserName":"Register"}</Button> */}
+              
               <div className="nav__btns d-none d-lg-flex">
                 {/* Theme change button */}
                 <i

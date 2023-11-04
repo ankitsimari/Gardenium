@@ -1,8 +1,37 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { loginFunction } from '../../Redux/AuthRouter/action';
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
   const [isSignUpMode, setSignUpMode] = useState(false);
+  const [email,setEmail]=useState("");
+  const [password,setPassword]=useState("");
+const dispatch = useDispatch();
+const navigate = useNavigate();
+
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    dispatch(loginFunction({email,password}))
+  }
+  
+  const all = useSelector((state)=>state.AuthReducer.token);
+  console.log(all)
+
+  const isAuth = useSelector((state)=>state.AuthReducer.isAuth);
+  if(isAuth){
+    
+    Swal.fire({
+      title: 'Login Successful',
+      text: 'You are Logged in Successfully!',
+      icon: 'success', // Set the icon to 'success'
+      confirmButtonColor: 'rgb(62,101,83)'
+    });
+    navigate("/")
+  }
 
   const toggleMode = () => {
     setSignUpMode(!isSignUpMode);
@@ -13,17 +42,15 @@ export default function Login() {
       <div className={`container  ${isSignUpMode ? ' sign-up-mode' : ''}`}>
         <div className="forms-container">
           <div className="signin-signup">
-            <form action="#" className={`sign-in-form${isSignUpMode ? ' hide' : ''}`}>
+            <form className={`sign-in-form${isSignUpMode ? ' hide' : ''}`} onSubmit={handleLogin}>
               <h2 className="">Sign in</h2>
-              {/* Add your form input fields and buttons here */}
-              {/* Use onChange and value to manage form inputs */}
               <div className="input-field">
                 <i className="fas fa-user"></i>
-                <input type="text" placeholder="Username" />
+                <input type="text" placeholder="Email" value={email} onChange={(e)=>setEmail(e.target.value)}/>
               </div>
               <div className="input-field">
                 <i className="fas fa-lock"></i>
-                <input type="password" placeholder="Password" />
+                <input type="password" placeholder="Password" value={password} onChange={(e)=>setPassword(e.target.value)} />
               </div>
               <input type="submit" value="Login" className="btn solid" />
               {/* Add your social media icons and links here */}

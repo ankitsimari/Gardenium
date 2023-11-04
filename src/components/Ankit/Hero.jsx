@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 // import HeroImg from "./assets/img/home.png"
 import HeroImg from "./img/home.png"
 import {useNavigate} from "react-router-dom"
 import Try from "./img/Try3.png"
+import { useDispatch, useSelector } from 'react-redux'
+import { getDataFunction } from '../../Redux/ProductRoute/Action'
 
 export default function Hero() {
     const navigate = useNavigate()
@@ -10,6 +12,14 @@ export default function Hero() {
     const handleClick=()=>{
      navigate("/products")
     }
+
+//     const all = useSelector((state) => state);
+//     console.log(all.PlantReducer);
+
+//     const dispatch = useDispatch()
+//     useEffect(()=>{
+// dispatch(getDataFunction(1))
+//     },[])
   return (
     <div>
              <section className="home" id="home">
