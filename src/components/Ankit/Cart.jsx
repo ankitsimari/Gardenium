@@ -84,7 +84,7 @@ export default function Cart() {
   
     <DIV className="container mt-5 pt-5">
       <div className="row">
-  <div className=" col-md-9 ps-5  py-5 rounded" data-aos="fade-right">
+  <div className=" col-md-9 ps-5  py-5 rounded" >
     <span className="d-flex justify-content-between">
 <h3>Shopping Cart</h3>
 {/* //hemanth */}
@@ -153,7 +153,7 @@ export default function Cart() {
     <hr className="mt-5"/>
   </div>
 
-  <div className=" col-md-3 border-start " data-aos="fade-left">
+  <div className=" col-md-3 border-start " >
     <h3 className="sideHead my-4  ms-3">Order Summary</h3>
     <hr />
     <p className="ms-3 fs-5" >

@@ -11,7 +11,7 @@ export default function Capsule() {
         <div class="container mt-5 mb-5 pt-lg-5">
 
 
-  <div class="card-left border" data-aos="fade-up">
+  <div class="card-left border" >
     <div class="card-image">
       <img src='https://5.imimg.com/data5/WX/YO/LT/SELLER-90188891/house-plants.jpg'/>
     </div>
@@ -22,7 +22,7 @@ export default function Capsule() {
   </div>
 
 
-  <div class="card-top border" data-aos="fade-up">
+  <div class="card-top border" >
     <div class="card-image">
       <img src='https://img.freepik.com/premium-photo/sustainable-living-photograph-eco-friendly-practices-daily-life_977107-714.jpg'/>
     </div>
@@ -33,7 +33,7 @@ export default function Capsule() {
   </div>
 
 
-  <div class="card-right border" data-aos="fade-up">
+  <div class="card-right border" >
     <div class="card-image">
       <img src='https://secretgardens.co.nz/wp-content/uploads/2023/02/DSC_0475.jpg'/>
     </div>
@@ -44,7 +44,7 @@ export default function Capsule() {
   </div>
 
 
-  <div class="card-right border" data-aos="fade-up">
+  <div class="card-right border" >
     <div class="card-image">
     <img src='https://images.contentstack.io/v3/assets/blt4b058df675b2da42/blta177163d39512cd1/6514569705fa06bd6df4ce5a/060922_JZ_A_0227.jpg'/>
     </div>
@@ -55,7 +55,7 @@ export default function Capsule() {
   </div>
 
   
-  <div class="card-left border" data-aos="fade-up">
+  <div class="card-left border" >
     <div class="card-image">
       <img src='https://media.istockphoto.com/id/1367939073/photo/businessman-using-tablet-and-laptop-analyzing-sales-data-and-economic-growth-graph-chart.jpg?s=612x612&w=0&k=20&c=SEELREH2KeXpqMCEMa2WHNrc4IsDQUvlvk8Upz_TtTg='/>
     </div>
@@ -64,7 +64,7 @@ export default function Capsule() {
       <p>Competitive and affordable product pricing strategies</p>
     </div>
   </div>
-  <div class="card-top border" data-aos="fade-up">
+  <div class="card-top border" >
     <div class="card-image">
       <img src='https://www.shutterstock.com/image-photo/delivery-orchid-flowers-singapore-botanic-260nw-90300217.jpg'/>
     </div>
@@ -73,7 +73,7 @@ export default function Capsule() {
       <p>Efficient shipping and delivery services</p>
     </div>
   </div>
-  <div class="card-bottom border" data-aos="fade-up">
+  <div class="card-bottom border" >
     <div class="card-image">
       <img src='https://img.freepik.com/free-photo/young-child-with-small-plants-by-window_23-2148831419.jpg?size=626&ext=jpg&ga=GA1.1.386372595.1698192000&semt=ais'/>
     </div>
@@ -82,7 +82,7 @@ export default function Capsule() {
       <p>Assurance of plant well-being and quality</p>
     </div>
   </div>
-  <div class="card-left border" data-aos="fade-up">
+  <div class="card-left border" >
     <div class="card-image">
     <img src='https://www.shutterstock.com/image-photo/courier-delivering-gift-box-floral-260nw-650680966.jpg'/>
     </div>
@@ -91,7 +91,7 @@ export default function Capsule() {
       <p>Specialized gift-giving and wrapping solutions</p>
     </div>
   </div>
-  <div class="card-bottom border" data-aos="fade-up">
+  <div class="card-bottom border" >
     <div class="card-image">
       <img src='https://media.istockphoto.com/id/1364679535/photo/man-teaching-children-about-plants-in-community-garden.jpg?s=612x612&w=0&k=20&c=bV8c4vx4-zYc_kW9PxE94IJ9dA_vT9zP3BmvgKABtyk='/>
     </div>
@@ -100,7 +100,7 @@ export default function Capsule() {
       <p>Gatherings celebrating plant enthusiasts and greenery</p>
     </div>
   </div>
-  <div class="card-right border" data-aos="fade-up">
+  <div class="card-right border" >
     <div class="card-image">
       <img src='https://media.istockphoto.com/id/1148009613/photo/environmental-beautification-volunteers-plant-flowers-plants-at-local-park-in-spring.jpg?s=612x612&w=0&k=20&c=e2ocKwtW5sEi6y5M5dlbd2HBtpaTrZpgnFJM5r-pbh4='/>
     </div>
