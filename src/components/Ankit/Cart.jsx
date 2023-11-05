@@ -38,40 +38,43 @@ dispatch(getCartFunction)
         </tr>
       </thead>
       <tbody className="">
+        {cart.length > 0 && cart.map((e)=>(
       <tr className="shadow  " >
-                <td>
-                  <img src={"e.image"} alt="" />
-                </td>
-                <td>{"e.title"}</td>
-                <td>{"e.category"}</td>
-                <td>{Math.floor("e.price")}</td>
-                <td className="more_width">
-                  {/* <button className="plusMin " onClick={() => { handleDec(e.id); }}>
-                    <AiOutlineMinusCircle className="text-danger"/>
-                  </button> */}
-                  <button className="plusMin " >
-                    <AiOutlineMinusCircle className="text-danger"/>
-                  </button>
-              <span className="mx-1 text-danger">
+      <td>
+        <img src={e.image} alt="" />
+      </td>
+      <td>{e.title}</td>
+      <td>{e.category}</td>
+      <td>{Math.floor(e.price)}</td>
+      <td className="more_width">
+        {/* <button className="plusMin " onClick={() => { handleDec(e.id); }}>
+          <AiOutlineMinusCircle className="text-danger"/>
+        </button> */}
+        <button className="plusMin " >
+          <AiOutlineMinusCircle className="text-danger"/>
+        </button>
+    <span className="mx-1 text-danger">
 
-                {"e"}
-              </span>
+      {"e"}
+    </span>
 
-                  {/* <button className="plusMin " onClick={() => { handleInc(e.id); }}> <AiOutlinePlusCircle className="text-success" /></button> */}
-                  <span></span>
-                  <button className="plusMin " > <AiOutlinePlusCircle className="text-success" /></button>
-               
-                </td>
-                <td>{"Math.floor(e.total)"}</td>
-                <td>
-                  {/* <button className="deleteBtn py-1" onClick={() => { handleDelete(e.id); }}>
-                    <AiFillDelete className="fs-4 "/>
-                  </button> */}
-                  <button className="deleteBtn py-1">
-                    <AiFillDelete className="fs-4 "/>
-                  </button>
-                </td>
-              </tr>
+        {/* <button className="plusMin " onClick={() => { handleInc(e.id); }}> <AiOutlinePlusCircle className="text-success" /></button> */}
+        <span></span>
+        <button className="plusMin " > <AiOutlinePlusCircle className="text-success" /></button>
+     
+      </td>
+      <td>{"Total"}</td>
+      <td>
+        {/* <button className="deleteBtn py-1" onClick={() => { handleDelete(e.id); }}>
+          <AiFillDelete className="fs-4 "/>
+        </button> */}
+        <button className="deleteBtn py-1">
+          <AiFillDelete className="fs-4 "/>
+        </button>
+      </td>
+    </tr>
+        ))}
+
       </tbody>
     </table>
     <hr className="mt-5"/>
