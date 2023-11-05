@@ -13,7 +13,7 @@ import { useSelector } from "react-redux";
 
   export const loginFunction=(emData)=>(dispatch)=>{
    axios
-      .post("http://localhost:8080/users/login", emData)
+      .post("https://plant-api-opjp.onrender.com/users/login", emData)
       .then((res) => {
         // console.log("login UPDate",res.data)
        localStorage.setItem("token", res.data.token);
@@ -26,7 +26,7 @@ import { useSelector } from "react-redux";
 
 
     export const logoutFunction=(dispatch)=>{
-    axios.get('http://localhost:8080/users/logout').then((response)=>{
+    axios.get('https://plant-api-opjp.onrender.com/users/logout').then((response)=>{
       dispatch({type:LogoutUpdate})
     }).catch((error)=>{
       console.log(error)
