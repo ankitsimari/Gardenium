@@ -3,6 +3,9 @@ import {
   ADD_TO_CART_FAIL,
   ADD_TO_CART_REQ,
   ADD_TO_CART_SUCCESS,
+  GET_All_PLANTS_FAIL,
+  GET_All_PLANTS_REQ,
+  GET_All_PLANTS_SUCCESS,
   GET_CART_FAIL,
   GET_CART_REQ,
   GET_CART_SUCCESS,
@@ -64,3 +67,14 @@ export const getCartFunction = (dispatch) => {
       dispatch({ typr: GET_CART_FAIL });
     });
 };
+
+
+export const getAllPlantsFunction = (dispatch)=>{
+  dispatch({ type: GET_All_PLANTS_REQ})
+  axios.get('https://plant-api-opjp.onrender.com/plants/?limit=30').then((res)=>{
+    console.log(res.data)
+    dispatch({ type: GET_All_PLANTS_SUCCESS,payload:res.data})
+  }).catch((err)=>{
+    dispatch({ type: GET_All_PLANTS_FAIL})
+  })
+}

@@ -67,11 +67,11 @@ const location = useLocation();
 console.log(location.pathname)
   return (
 
-    //     <div style={{display:location.pathname=="/contact"?"none":""}}>
+    //     <div >
 
 
 
-    <div>
+    <div style={{display:location.pathname=="/admin"?"none":""}}>
       <nav className="navbar navbar-expand-lg sticky-top whiteBg"  >
         <div className="container text-black text-center text-md-start ">
           <Link

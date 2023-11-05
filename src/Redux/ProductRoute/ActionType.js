@@ -17,3 +17,6 @@ export const GET_CART_REQ = "GET_CART_REQ";
 export const GET_CART_SUCCESS = "GET_CART_SUCCESS";
 export const GET_CART_FAIL = "GET_CART_FAIL";
 
+export const GET_All_PLANTS_REQ = "GET_All_PLANTS_REQ";
+export const GET_All_PLANTS_SUCCESS = "GET_All_PLANTS_SUCCESS";
+export const GET_All_PLANTS_FAIL = "GET_All_PLANTS_FAIL";

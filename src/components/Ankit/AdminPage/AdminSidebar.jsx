@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     FaTh,
     FaBars,
@@ -14,6 +14,10 @@ import {MdCrisisAlert} from "react-icons/md"
 import {BiMessageAltAdd} from "react-icons/bi"
 import {TbLogout2} from "react-icons/tb"
 import styled from 'styled-components';
+import Dashboard from './Pages/Dashboard';
+import { useDispatch } from 'react-redux';
+import {getAllPlantsFunction } from '../../../Redux/ProductRoute/Action';
+import Stocks from './Pages/Stocks';
 
 
 const AdminSidebar = ({children}) => {
@@ -69,6 +73,11 @@ const AdminSidebar = ({children}) => {
         setFilter(e)
     }
 
+    const dispatch = useDispatch()
+
+    useEffect(()=>{
+        dispatch(getAllPlantsFunction)
+    },[])
 
 
 console.log(filter)
@@ -92,7 +101,7 @@ console.log(filter)
                }              
 
            </div>
-           <main >{filter=="/main"?"Home":"Other"}</main>
+           <main >{filter=="/main"?<Dashboard/>:<Stocks/>}</main>
         </DIV>
     );
 };
