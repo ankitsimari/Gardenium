@@ -1,4 +1,4 @@
-import { GET_CART_FAIL, GET_CART_REQ, GET_CART_SUCCESS, GET_PLANT_FAIL, GET_PLANT_REQ, GET_PLANT_SUCCESS } from "./ActionType"
+import { ADD_TO_CART_REQ, ADD_TO_CART_SUCCESS, GET_CART_FAIL, GET_CART_REQ, GET_CART_SUCCESS, GET_PLANT_FAIL, GET_PLANT_REQ, GET_PLANT_SUCCESS } from "./ActionType"
 
 const initialState ={
     isLoading: false,
@@ -24,6 +24,10 @@ export const reducer = (state=initialState,{type,payload})=>{
             return{...state,isLoading:false,cart:payload}
         case GET_CART_FAIL:
             return{...state,isLoading:false,isError:true}
+        case ADD_TO_CART_REQ:
+            return{...state,isLoading:true}
+        case ADD_TO_CART_SUCCESS:
+           return {...state,isLoading:false}
         default : return state
     }
 
