@@ -26,15 +26,18 @@ export const addToCartFunction = (obj)=> (dispatch)=>{
 
 export const getCartFunction = (dispatch)=>{
     const token = localStorage.getItem('token');
+    console.log(token)
     const config = {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       };
-    
+    console.log(config,"con")
     dispatch({type:GET_CART_REQ})
     axios.get("http://localhost:8080/cart/",config).then((res)=>{
+        console.log(res.data,"cartData")
       dispatch({type:GET_CART_SUCCESS,payload:res.data})
+
     }).catch((err)=>{
         dispatch({typr:GET_CART_FAIL})
     })
