@@ -1,17 +1,84 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import {AiOutlineMinusCircle,  AiOutlinePlusCircle,AiFillDelete} from "react-icons/ai";
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { getCartFunction } from '../../Redux/ProductRoute/Action';
+import axios from 'axios';
 
 
 export default function Cart() {
   const cart = useSelector(state=>state.PlantReducer.cart);
+  const [total,setTotal]=useState(0)
+
   console.log(cart,"cart")
+
+  
+
+ 
+
+
+  // cart single item delete 
+  const handleDelete=(id)=>{
+    const token = localStorage.getItem("token");
+    console.log(token);
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    console.log(config, "con");
+   
+    axios
+      .delete(`https://plant-api-opjp.onrender.com/cart/delete/${id}`, config)
+      .then((res) => {
+        console.log(res,"delete cart");
+       
+      })
+      .catch((err) => {
+        console.log(err,"err cart delete")
+      });
+
+  }
+
+  const handleInc=(q,id)=>{
+
+   if(q==undefined){
+          const token = localStorage.getItem("token");
+          console.log(token);
+          const config = {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json"
+
+            },
+           // body:JSON.stringify({"quantity":2})
+          };
+          console.log(config, "con");
+         // dispatch({ type: GET_CART_REQ });
+          axios
+            .patch(`https://plant-api-opjp.onrender.com/cart/update/${id}`,{quantity:2}, config)
+            .then((res) => {
+              console.log(res.data, "cartData");
+             // dispatch({ type: GET_CART_SUCCESS, payload: res.data });
+            })
+            .catch((err) => {
+             // dispatch({ typr: GET_CART_FAIL });
+            });
+  
+   }else{
+
+   }
+  }
+  const handleDec=(q)=>{
+     if(q!=undefined){
+
+     }
+  }
+
 
   const dispatch = useDispatch()
   useEffect(()=>{
-dispatch(getCartFunction)
+  dispatch(getCartFunction)
   },[])
   return (
   
@@ -20,8 +87,9 @@ dispatch(getCartFunction)
   <div className=" col-md-9 ps-5  py-5 rounded" data-aos="fade-right">
     <span className="d-flex justify-content-between">
 <h3>Shopping Cart</h3>
+{/* //hemanth */}
 <h6 className="me-5 fs-5 " >
-{"cartArr.length"} Items  
+{cart.length} plants
     </h6>
     </span>
 <hr />
@@ -53,24 +121,29 @@ dispatch(getCartFunction)
         <button className="plusMin " >
           <AiOutlineMinusCircle className="text-danger"/>
         </button>
-    <span className="mx-1 text-danger">
+        
+    {e.quantity==undefined?<span className="mx-1 text-danger">
 
-      {"e"}
-    </span>
+{1}
+</span>:<span className="mx-1 text-danger">
 
-        {/* <button className="plusMin " onClick={() => { handleInc(e.id); }}> <AiOutlinePlusCircle className="text-success" /></button> */}
+      {e.quantity}
+    </span>}
+
+
+        <button className="plusMin " onClick={() => { handleInc(e.quantity,e._id); }}> <AiOutlinePlusCircle className="text-success" /></button>
         <span></span>
-        <button className="plusMin " > <AiOutlinePlusCircle className="text-success" /></button>
+        {/* <button className="plusMin " > <AiOutlinePlusCircle className="text-success" /></button> */}
      
       </td>
-      <td>{"Total"}</td>
+      {e.quantity==undefined?<td>{Math.floor(e.price)}</td>:<td>{Math.floor(e.price*e.quantity)}</td>}
       <td>
-        {/* <button className="deleteBtn py-1" onClick={() => { handleDelete(e.id); }}>
-          <AiFillDelete className="fs-4 "/>
-        </button> */}
-        <button className="deleteBtn py-1">
+        <button className="deleteBtn py-1" onClick={() => { handleDelete(e._id); }}>
           <AiFillDelete className="fs-4 "/>
         </button>
+        {/* <button className="deleteBtn py-1">
+          <AiFillDelete className="fs-4 "/>
+        </button> */}
       </td>
     </tr>
         ))}
@@ -87,7 +160,7 @@ dispatch(getCartFunction)
      Number Of Items : <span className="span1">{"cartArr.length"}</span>
     </p>
     <p  className="ms-3 fs-5">
-      Total Amount: <span className="span2">₹{Math.floor("totalPrice")}</span>
+      Total Amount: <span className="span2">₹{Math.floor(total)}</span>
     </p>
     <div className=" ms-3">
    {/* <ButtonComponent onClick={handleCheckout} name="Checkout" /> */}
