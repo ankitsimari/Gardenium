@@ -1,4 +1,4 @@
-import {LoginFail, LoginSuccess} from "./actionTypes"
+import {LoginFail, LoginSuccess,LogoutUpdate} from "./actionTypes"
 
 const initialState = {
     isLoading:false,
@@ -18,6 +18,9 @@ export const reducer = (state=initialState,{type,payload})=>{
 
     case LoginFail:
         return{...state,isError:true}
+
+    case LogoutUpdate:
+        return {...state,isAuth:false,token:"",loginUser:{}}
         default: return state
     }
 }

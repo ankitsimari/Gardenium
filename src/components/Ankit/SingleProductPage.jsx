@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 export default function SingleProductPage() {
     const [data,setData]=useState({});
-    const Plant = useSelector(state=>state.plants);
+    const Plant =useSelector((state) => state.PlantReducer.plants);
     const {id}=useParams()
 
     const singlePlant = Plant.filter((e)=>{

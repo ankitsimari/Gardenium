@@ -11,3 +11,9 @@ export const POST_PLANT_FAIL = "GET_PLANT_FAIL";
 export const ADD_TO_CART_REQ = "ADD_TO_CART_REQ";
 export const ADD_TO_CART_SUCCESS = "ADD_TO_CART_SUCCESS";
 export const ADD_TO_CART_FAIL = "ADD_TO_CART_FAIL";
+
+
+export const GET_CART_REQ = "GET_CART_REQ";
+export const GET_CART_SUCCESS = "GET_CART_SUCCESS";
+export const GET_CART_FAIL = "GET_CART_FAIL";
+

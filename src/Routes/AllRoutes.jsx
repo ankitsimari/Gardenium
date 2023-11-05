@@ -10,7 +10,7 @@ import Signup from '../components/Ankit/Signup'
 import LoginPage from '../components/Ankit/LoginPage'
 import SingleProductPage from '../components/Ankit/SingleProductPage'
 import User from '../components/Ankit/User'
-
+import Cart from '../components/Ankit/Cart'
 export default function AllRoutes() {
   return (
     <div>
@@ -18,10 +18,11 @@ export default function AllRoutes() {
             <Route path='/' element={<Home/>}/>
             <Route path='/products' element={<ProductSection/>} />
             <Route path='/about' element={<AboutSection/>} />
-            <Route path='/contact' element={<Login/>} />
+            <Route path='/contact' element={<Cart/>} />
             <Route path='/signup' element={<Signup/>} />
             <Route path='/loginPage' element={<Login/>} />
             <Route path='/user' element={<User/>} />
+            <Route path='/cart' element={<Cart/>} />
             <Route path='/signlePage/:id' element={<SingleProductPage/>} />
             
         </Routes>

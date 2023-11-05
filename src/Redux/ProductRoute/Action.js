@@ -1,6 +1,7 @@
 
 import axios from "axios"
-import { ADD_TO_CART_FAIL, ADD_TO_CART_REQ, ADD_TO_CART_SUCCESS, GET_PLANT_FAIL, GET_PLANT_REQ, GET_PLANT_SUCCESS } from "./ActionType"
+import { ADD_TO_CART_FAIL, ADD_TO_CART_REQ, ADD_TO_CART_SUCCESS, GET_CART_FAIL, GET_CART_REQ, GET_CART_SUCCESS, GET_PLANT_FAIL, GET_PLANT_REQ, GET_PLANT_SUCCESS } from "./ActionType"
+import { useSelector } from "react-redux"
 
 
 export const getDataFunction = (page)=> (dispatch) =>{
@@ -22,3 +23,19 @@ export const addToCartFunction = (obj)=> (dispatch)=>{
         dispatch({type:ADD_TO_CART_FAIL})
     })
 }
+
+export const getCartFunction = (dispatch)=>{
+    const token = localStorage.getItem('token');
+    const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+    
+    dispatch({type:GET_CART_REQ})
+    axios.get("http://localhost:8080/cart/",config).then((res)=>{
+      dispatch({type:GET_CART_SUCCESS,payload:res.data})
+    }).catch((err)=>{
+        dispatch({typr:GET_CART_FAIL})
+    })
+  }

@@ -4,7 +4,8 @@ import React, { useEffect, useRef } from "react";
 import HamburgerIcon from "./HamburgerIcon";
 import {GiHamburgerMenu} from "react-icons/gi"
 import { useSelector } from "react-redux";
-
+import User from "./User";
+import {BsCartFill} from "react-icons/bs"
 
 export default function Navbar() {
   const [currentTheme, setCurrentTheme] = React.useState("dark");
@@ -59,8 +60,8 @@ export default function Navbar() {
 navigate("/loginPage")
   }
 
-  const handleUserNavigation = () => {
-    navigate("/user")
+  const handleCartNavigation = () => {
+    navigate("/cart")
   }
 const location = useLocation();
 console.log(location.pathname)
@@ -146,15 +147,9 @@ console.log(location.pathname)
             </ul>
             <div className="d-flex flex-column flex-lg-row">
 
-        { isAuth? <a onClick={handleUserNavigation} style={{cursor:"pointer"}}  className=" fw-bold nav__link px-4 m-3 m-lg-0 mx-lg-3" >User</a> :   <a onClick={handleLoginNavigation} style={{cursor:"pointer"}} className=" fw-bold nav__link px-4 m-3 m-lg-0 mx-lg-3" to="/login">Login</a>}
-        
-              {/* <a href="./login.html" className="btn btn-1 fw-bold  px-4 m-3 m-lg-0 mx-lg-3">Login</a> */}
-              {/* <NavLink to="/login" >
-          
+        { isAuth? <User/> :   <a onClick={handleLoginNavigation} style={{cursor:"pointer"}} className=" fw-bold nav__link px-4 m-3 m-lg-0 mx-lg-3" to="/login">Login</a>}
 
-          {isAuth?<User/>:<Button  className="btn btn-2 fw-bold px-4 mx-3 mx-lg-0  me-xl-5">Register</Button>}
-          </NavLink> */}
-              {/* <Button  className="btn btn-2 fw-bold px-4 mx-3 mx-lg-0  me-xl-5">{isAuth?"UserName":"Register"}</Button> */}
+        {isAuth?<a onClick={handleCartNavigation} className="nav__link mt-1 me-3"><BsCartFill className="fs-3" style={{cursor:"pointer",color:"rgb(62,101,83)"}} /></a>:null}
               
               <div className="nav__btns d-none d-lg-flex">
                 {/* Theme change button */}
