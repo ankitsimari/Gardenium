@@ -64,7 +64,6 @@ const Stocks = () => {
     <div>
       <div className="my-4 mt-4 d-flex gap-5 ms-3 justify-content-center" data-aos="fade-left">
         {name.map((e,index)=>  <StockCard text={name[index]} data={Length[index]} bg={colors[index]} comp={logo[index]} />)}
-     
       </div>
 
       <div className="d-block m-auto ms-3" >
