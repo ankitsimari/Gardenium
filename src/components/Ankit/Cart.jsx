@@ -1,15 +1,18 @@
 import React, { useEffect } from 'react'
 import {AiOutlineMinusCircle,  AiOutlinePlusCircle,AiFillDelete} from "react-icons/ai";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { getCartFunction } from '../../Redux/ProductRoute/Action';
 
 
 export default function Cart() {
-  const cart = useSelector(state=>state);
+  const cart = useSelector(state=>state.PlantReducer.cart);
   console.log(cart,"cart")
-  // useEffect(()=>{
 
-  // },[])
+  const dispatch = useDispatch()
+  useEffect(()=>{
+dispatch(getCartFunction)
+  },[])
   return (
   
     <DIV className="container mt-5 pt-5">
