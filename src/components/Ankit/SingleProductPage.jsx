@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import productImg from "./img/about.png"
 import {BsFillCartPlusFill} from "react-icons/bs"
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import { addToCartFunction } from '../../Redux/ProductRoute/Action';
 export default function SingleProductPage() {
     const [data,setData]=useState({});
     const Plant =useSelector((state) => state.PlantReducer.plants);
@@ -14,6 +15,12 @@ export default function SingleProductPage() {
             return e
         }
     })
+
+    const dispatch = useDispatch()
+
+    const handleAdd = ()=>{
+        dispatch(addToCartFunction(data))
+    }
 
     useEffect(()=>{
         setData(singlePlant[0])
@@ -38,7 +45,7 @@ export default function SingleProductPage() {
                     <h4 className='my-4 '>₹5{data.price}</h4>
                     </span>
                     <h5 className='my-4'>Including All texes</h5>
-                    <a  className="button button--flex fw-bold">
+                    <a  className="button button--flex fw-bold" onClick={handleAdd}>
                             Add To cart <BsFillCartPlusFill/>
                         </a>
                 </div>
