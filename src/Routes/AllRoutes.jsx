@@ -12,6 +12,7 @@ import SingleProductPage from '../components/Ankit/SingleProductPage'
 import User from '../components/Ankit/User'
 import Cart from '../components/Ankit/Cart'
 import PrivateRoute from './PrivateRoute'
+import Payment from '../components/Payment/Payment'
 export default function AllRoutes() {
   return (
     <div>
@@ -19,13 +20,16 @@ export default function AllRoutes() {
             <Route path='/' element={<Home/>}/>
             <Route path='/products' element={<ProductSection/>} />
             <Route path='/about' element={<AboutSection/>} />
-            <Route path='/contact' element={       
-                <Cart/>
+            <Route path='/contact' element={  
+                 <PrivateRoute>
+                   <Cart/>
+                 </PrivateRoute>     
             } />
             <Route path='/signup' element={<Signup/>} />
             <Route path='/loginPage' element={<Login/>} />
             <Route path='/user' element={<User/>} />
             <Route path='/admin' element={<AdminSidebar/>} />
+            <Route path='/payment' element={<Payment/>} />
             <Route path='/cart' element={
               <PrivateRoute>
                 <Cart/>

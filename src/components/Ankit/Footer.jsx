@@ -3,10 +3,13 @@ import card1 from "./img/card1.png"
 import card2 from "./img/card2.png"
 import card3 from "./img/card3.png"
 import card4 from "./img/card4.png"
+import { useLocation } from 'react-router-dom'
 
 export default function Footer() {
+    const location = useLocation();
+console.log(location.pathname)
   return (
-    <div>
+    <div style={{display:location.pathname=="/admin"?"none":""}}>
             <footer className="footer section">
             <div className="footer__container container grid">
                 <div className="footer__content">
