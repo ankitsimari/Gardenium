@@ -62,16 +62,16 @@ const Stocks = () => {
 
   return (
     <div>
-      <div className="my-4 mt-4 d-flex gap-5 ms-3 justify-content-center" data-aos="fade-left">
+      <div className="my-4 mt-4 d-flex gap-5 ms-3 justify-content-center" >
         {name.map((e,index)=>  <StockCard text={name[index]} data={Length[index]} bg={colors[index]} comp={logo[index]} />)}
       </div>
 
       <div className="d-block m-auto ms-3" >
         <span className="d-flex gap-4 mt-5" >
-          <div className="shadow p-4" style={{ width: "60%" }} data-aos="fade-right">
+          <div className="shadow p-4" style={{ width: "60%" }} >
         <BarChart chatData={userData} />
           </div>
-          <div className="shadow p-4" style={{ width: "33%" }} data-aos="fade-left">
+          <div className="shadow p-4" style={{ width: "33%" }} >
         <PieChart chatData={userData} />
           </div>
         </span>

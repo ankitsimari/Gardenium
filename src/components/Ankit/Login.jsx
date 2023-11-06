@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { loginFunction } from '../../Redux/AuthRouter/action';
 import Swal from 'sweetalert2';
-import { useNavigate } from 'react-router-dom';
+import {useNavigate } from 'react-router-dom';
 
 export default function Login() {
   const [isSignUpMode, setSignUpMode] = useState(false);
@@ -15,7 +15,12 @@ const navigate = useNavigate();
 
   const handleLogin = (e) => {
     e.preventDefault();
-    dispatch(loginFunction({email,password}))
+    if(email=="admin@gmail.com"){
+      navigate("/admin")
+    }else{
+
+      dispatch(loginFunction({email,password}))
+    }
   }
   
   const all = useSelector((state)=>state.AuthReducer.token);

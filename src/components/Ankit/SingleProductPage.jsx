@@ -2,24 +2,36 @@ import React, { useEffect, useState } from 'react'
 import productImg from "./img/about.png"
 import {BsFillCartPlusFill} from "react-icons/bs"
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { addToCartFunction } from '../../Redux/ProductRoute/Action';
+import Swal from 'sweetalert2';
 export default function SingleProductPage() {
     const [data,setData]=useState({});
     const Plant =useSelector((state) => state.PlantReducer.plants);
     const {id}=useParams()
-
+    const navigate = useNavigate()
     const singlePlant = Plant.filter((e)=>{
         if(e._id==id){
             return e
         }
     })
-
+    const isAuth = useSelector((state)=>state.AuthReducer.isAuth);
     const dispatch = useDispatch()
 
     const handleAdd = ()=>{
-        dispatch(addToCartFunction(data))
+        if(isAuth){
+
+            dispatch(addToCartFunction(data))
+            Swal.fire({
+                title: 'Added to Cart',
+                text: 'Product is Added to Cart Successfully!',
+                icon: 'success', // Set the icon to 'success'
+                confirmButtonColor: 'rgb(62,101,83)'
+              });
+        }else{
+            navigate("/loginPage")
+        }
     }
 
     useEffect(()=>{

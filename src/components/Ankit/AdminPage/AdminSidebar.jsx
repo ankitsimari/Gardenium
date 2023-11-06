@@ -18,6 +18,8 @@ import Dashboard from './Pages/Dashboard';
 import { useDispatch } from 'react-redux';
 import {getAllPlantsFunction } from '../../../Redux/ProductRoute/Action';
 import Stocks from './Pages/Stocks';
+import Sales from './Pages/Sales';
+import { AdminAddProduct } from './Pages/AdminAddProduct';
 
 
 const AdminSidebar = ({children}) => {
@@ -32,7 +34,7 @@ const AdminSidebar = ({children}) => {
             icon:<FaTh/>
         },
         {
-            path:"/analytics",
+            path:"/stocks",
             name:"Stocks",
             icon:<FaRegChartBar/>
         },
@@ -101,7 +103,7 @@ console.log(filter)
                }              
 
            </div>
-           <main >{filter=="/main"?<Dashboard/>:<Stocks/>}</main>
+           <main >{filter=="/main"?<Dashboard/>:filter=="/stocks"?<Stocks/>:filter=="/sales"?<Sales/>:filter=="/AdminProduct"?<AdminAddProduct/>:"Nothing"}</main>
         </DIV>
     );
 };

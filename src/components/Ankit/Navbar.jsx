@@ -141,7 +141,7 @@ console.log(location.pathname)
                   className="nav-link nav__link fw-bold "
                   to="/contact"
                 >
-                  Contact
+                  Order
                 </NavLink>
               </li>
             </ul>
