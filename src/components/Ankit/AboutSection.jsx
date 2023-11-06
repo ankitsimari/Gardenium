@@ -5,8 +5,8 @@ import Payment from '../Payment/Payment'
 export default function AboutSection() {
   return (
     <div className=' fw-bold  '>
-{/* <About/> */}
-<Payment/>
+<About/>
+{/* <Payment/> */}
     </div>
   )
 }

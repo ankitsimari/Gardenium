@@ -20,6 +20,7 @@ import {getAllPlantsFunction } from '../../../Redux/ProductRoute/Action';
 import Stocks from './Pages/Stocks';
 import Sales from './Pages/Sales';
 import { AdminAddProduct } from './Pages/AdminAddProduct';
+import Reviews from './Pages/Reviews';
 
 
 const AdminSidebar = ({children}) => {
@@ -49,7 +50,7 @@ const AdminSidebar = ({children}) => {
             icon:<FaUserAlt/>
         },
         {
-            path:"/comment",
+            path:"/review",
             name:"Reviews",
             icon:<FaCommentAlt/>
         },
@@ -103,7 +104,7 @@ console.log(filter)
                }              
 
            </div>
-           <main >{filter=="/main"?<Dashboard/>:filter=="/stocks"?<Stocks/>:filter=="/sales"?<Sales/>:filter=="/AdminProduct"?<AdminAddProduct/>:"Nothing"}</main>
+           <main >{filter=="/main"?<Dashboard/>:filter=="/stocks"?<Stocks/>:filter=="/sales"?<Sales/>:filter=="/AdminProduct"?<AdminAddProduct/>:filter=="/review"?<Reviews/>:"Nothing"}</main>
         </DIV>
     );
 };

@@ -4,13 +4,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { getCartFunction, updateCartUi } from '../../Redux/ProductRoute/Action';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function Cart() {
   const cart = useSelector(state=>state.PlantReducer.cart);
   const cartTotal = useSelector(state=>state.PlantReducer.cartTotal);
 const[total,setTotal]=useState(0)
-
+const navigate = useNavigate()
   console.log(cart,"cart")
 
   
@@ -194,7 +195,9 @@ const[total,setTotal]=useState(0)
   }
 
 
-
+const handleCheckout = ()=>{
+  navigate("/payment")
+}
 
 
 
@@ -284,7 +287,8 @@ const[total,setTotal]=useState(0)
       Total Amount: <span className="span2">₹{Math.floor(cartTotal)}</span>
     </p>}
     <div className=" ms-3">
-   {/* <ButtonComponent onClick={handleCheckout} name="Checkout" /> */}
+
+<button onClick={handleCheckout} className='btn px-4 bg py-2 rounded-0 mt-2 text-white  '>Checkout</button>
     </div>
   </div>
       </div>
