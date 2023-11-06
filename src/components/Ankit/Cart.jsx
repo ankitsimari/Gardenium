@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react'
 import {AiOutlineMinusCircle,  AiOutlinePlusCircle,AiFillDelete} from "react-icons/ai";
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { getCartFunction } from '../../Redux/ProductRoute/Action';
+import { getCartFunction, updateCartUi } from '../../Redux/ProductRoute/Action';
 import axios from 'axios';
 
 
 export default function Cart() {
   const cart = useSelector(state=>state.PlantReducer.cart);
-  const [total,setTotal]=useState(0)
+  const cartTotal = useSelector(state=>state.PlantReducer.cartTotal);
+const[total,setTotal]=useState(0)
 
   console.log(cart,"cart")
 
@@ -21,6 +22,7 @@ export default function Cart() {
   const handleDelete=(id)=>{
     const token = localStorage.getItem("token");
     console.log(token);
+
     const config = {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -38,9 +40,55 @@ export default function Cart() {
         console.log(err,"err cart delete")
       });
 
+      //ui update 
+      const arr=cart.filter((e)=>{
+        return e._id!==id
+      })
+      console.log(arr,"cartarr delete manual")
+      dispatch(updateCartUi(arr))
+
+      //total value update code
+      let sum=0;
+      for(let i=0;i<arr.length;i++){
+        if(arr[i].quantity==undefined){
+          sum+=arr[i].price
+        }else{
+          sum+=(arr[i].price*arr[i].quantity)
+        }
+      }
+      dispatch(updateCartUi(arr,sum))
+
   }
 
+
+//increment the quantity of one item
+
   const handleInc=(q,id)=>{
+
+  // for intial quantity is 1 updating to 2
+  const arr=cart.map((e)=>{
+      if(e._id==id){
+        if(e.quantity!=undefined){
+          e.quantity++
+        }else{
+          e.quantity=2
+        }
+      }
+      return e
+  })
+
+  let sum=0;
+  for(let i=0;i<arr.length;i++){
+    if(arr[i].quantity==undefined){
+      sum+=arr[i].price
+    }else{
+      sum+=(arr[i].price*arr[i].quantity)
+    }
+  }
+  dispatch(updateCartUi(arr,sum))
+
+  console.log(arr,"cartarr handleINC manual")
+ 
 
    if(q==undefined){
           const token = localStorage.getItem("token");
@@ -49,37 +97,112 @@ export default function Cart() {
             headers: {
               Authorization: `Bearer ${token}`,
               "Content-Type": "application/json"
-
             },
-           // body:JSON.stringify({"quantity":2})
           };
           console.log(config, "con");
-         // dispatch({ type: GET_CART_REQ });
+        
           axios
-            .patch(`https://plant-api-opjp.onrender.com/cart/update/${id}`,{quantity:2}, config)
+            .patch(`https://plant-api-opjp.onrender.com/cart/update/${id}`,{"quantity":2}, config)
             .then((res) => {
               console.log(res.data, "cartData");
-             // dispatch({ type: GET_CART_SUCCESS, payload: res.data });
             })
             .catch((err) => {
-             // dispatch({ typr: GET_CART_FAIL });
+           console.log(err,"err")
             });
   
-   }else{
+   }
+   else{
+    // qyantity of 1 item greater than 2 
+          const token = localStorage.getItem("token");
+          console.log(token);
+          const config = {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json"
+            },
+          };
 
+          console.log(config, "con");
+       
+          axios
+            .patch(`https://plant-api-opjp.onrender.com/cart/update/${id}`,{"quantity":++q}, config)
+            .then((res) => {
+              console.log(res.data, "cartData");
+            })
+            .catch((err) => {
+          console.log(err,"err in cart")
+            });
    }
   }
-  const handleDec=(q)=>{
-     if(q!=undefined){
 
-     }
+
+
+
+
+
+  // decrementing  the quantity of one item 
+
+  const handleDec=(q,id)=>{
+
+    console.log(typeof(q),"typeofq")
+    console.log(q,id,"q,id")
+
+    const arr=cart.map((e)=>{
+      if(e._id==id){
+        if(e.quantity!=undefined){
+          if(e.quantity>1){
+            e.quantity--
+          }
+        }
+      }
+      return e
+  })
+
+  let sum=0;
+  for(let i=0;i<arr.length;i++){
+    if(arr[i].quantity==undefined){
+      sum+=arr[i].price
+    }else{
+      sum+=(arr[i].price*arr[i].quantity)
+    }
   }
+ 
+  
+  dispatch(updateCartUi(arr,sum))
+
+  if(q>1){
+    const token = localStorage.getItem("token");
+          console.log(token);
+          const config = {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json"
+            },
+          };
+
+          console.log(config, "con");
+       
+          axios
+            .patch(`https://plant-api-opjp.onrender.com/cart/update/${id}`,{"quantity":--q}, config)
+            .then((res) => {
+              console.log(res.data, "cartData");
+            })
+            .catch((err) => {
+          console.log(err,"err in cart")
+            });
+  }
+  }
+
+
+
+
 
 
   const dispatch = useDispatch()
   useEffect(()=>{
   dispatch(getCartFunction)
   },[])
+  console.log(cart,cartTotal,"cart,cartTotal")
   return (
   
     <DIV className="container mt-5 pt-5">
@@ -115,12 +238,10 @@ export default function Cart() {
       <td>{e.category}</td>
       <td>{Math.floor(e.price)}</td>
       <td className="more_width">
-        {/* <button className="plusMin " onClick={() => { handleDec(e.id); }}>
-          <AiOutlineMinusCircle className="text-danger"/>
-        </button> */}
-        <button className="plusMin " >
+        <button className="plusMin " onClick={() => { handleDec(e.quantity,e._id); }}>
           <AiOutlineMinusCircle className="text-danger"/>
         </button>
+       
         
     {e.quantity==undefined?<span className="mx-1 text-danger">
 
@@ -157,11 +278,11 @@ export default function Cart() {
     <h3 className="sideHead my-4  ms-3">Order Summary</h3>
     <hr />
     <p className="ms-3 fs-5" >
-     Number Of Items : <span className="span1">{"cartArr.length"}</span>
+     Number Of Items : <span className="span1">{cart.length}</span>
     </p>
-    <p  className="ms-3 fs-5">
-      Total Amount: <span className="span2">₹{Math.floor(total)}</span>
-    </p>
+    {<p  className="ms-3 fs-5">
+      Total Amount: <span className="span2">₹{Math.floor(cartTotal)}</span>
+    </p>}
     <div className=" ms-3">
    {/* <ButtonComponent onClick={handleCheckout} name="Checkout" /> */}
     </div>
