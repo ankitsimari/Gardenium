@@ -1,4 +1,4 @@
-import { ADD_TO_CART_REQ, ADD_TO_CART_SUCCESS, GET_All_PLANTS_FAIL, GET_All_PLANTS_REQ, GET_All_PLANTS_SUCCESS, GET_CART_FAIL, GET_CART_REQ, GET_CART_SUCCESS, GET_PLANT_FAIL, GET_PLANT_REQ, GET_PLANT_SUCCESS, UPDATE_CART_UI } from "./ActionType"
+import { ADD_TO_CART_REQ, ADD_TO_CART_SUCCESS, ADMIN_GET_ALL_PLANTS, GET_All_PLANTS_FAIL, GET_All_PLANTS_REQ, GET_All_PLANTS_SUCCESS, GET_CART_FAIL, GET_CART_REQ, GET_CART_SUCCESS, GET_PLANT_FAIL, GET_PLANT_REQ, GET_PLANT_SUCCESS, UPDATE_CART_UI } from "./ActionType"
 
 const initialState ={
     isLoading: false,
@@ -7,7 +7,8 @@ const initialState ={
     totalPage: 0,
     cart: [],
     totalPlants: [],
-    cartTotal:0
+    cartTotal:0,
+    adminPlantsList:[]
 }
 
 export const reducer = (state=initialState,{type,payload,sum})=>{
@@ -39,6 +40,9 @@ export const reducer = (state=initialState,{type,payload,sum})=>{
             //hemanthchanges
             case UPDATE_CART_UI:
                 return{...state,isLoading:false,cart:payload,cartTotal:sum}
+            case ADMIN_GET_ALL_PLANTS:
+                console.log(payload,type)
+                return{...state,isLoading:false,adminPlantsList:payload}
             //hemanthchanges
         default : return state
     }

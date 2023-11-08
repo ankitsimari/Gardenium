@@ -13,6 +13,7 @@ import User from '../components/Ankit/User'
 import Cart from '../components/Ankit/Cart'
 import PrivateRoute from './PrivateRoute'
 import Payment from '../components/Payment/Payment'
+import { AdminEditProduct } from '../components/Ankit/AdminPage/Pages/AdminEditProduct'
 export default function AllRoutes() {
   return (
     <div>
@@ -36,6 +37,10 @@ export default function AllRoutes() {
               </PrivateRoute>
             } />
             <Route path='/signlePage/:id' element={<SingleProductPage/>} />
+            {/* //changes */}
+            <Route path='/adminEditProduct/:id' element={<AdminEditProduct/>} />
+
+            {/* //changes */}
             
         </Routes>
     </div>
