@@ -1,6 +1,5 @@
 import "./App.css";
 import Navbar from "./components/Ankit/Navbar";
-import Faq from "./components/Ankit/Faq";
 import Footer from "./components/Ankit/Footer";
 
 import { useEffect } from "react";
@@ -13,7 +12,7 @@ function App() {
   //   },[])
 
   return (
-    <div className="App ">
+    <div className="App text-center text-lg-start">
       <Navbar />
       <AllRoutes />
       {/* <Faq/>   */}

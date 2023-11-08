@@ -20,8 +20,8 @@ export default function About() {
                 <div className="about__container grid">
                     <img src={aboutImg} alt="" className="about__img"  />
 
-                    <div className="about__data" >
-                        <h2 className="section__title about__title">
+                    <div className="about__data px-3" >
+                        <h2 className="section__title about__title ">
                             Who we really are & <br/> why choose us
                         </h2>
 

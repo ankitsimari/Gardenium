@@ -1,7 +1,6 @@
 import { Link, NavLink, useLocation, useNavigate, useSearchParams } from "react-router-dom";
 // import User from "../Login/User";
 import React, { useEffect, useRef } from "react";
-import HamburgerIcon from "./HamburgerIcon";
 import {GiHamburgerMenu} from "react-icons/gi"
 import { useSelector } from "react-redux";
 import User from "./User";
@@ -12,7 +11,7 @@ export default function Navbar() {
   const themeButtonRef = useRef(null);
   const darkTheme = "dark-theme";
   const iconTheme = "ri-sun-line";
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const selectedTheme = localStorage.getItem("selected-theme");
   const selectedIcon = localStorage.getItem("selected-icon");
@@ -82,7 +81,7 @@ console.log(location.pathname)
           >
             <i className="ri-leaf-line nav__logo-icon"></i> Gardenium
           </Link>
-          <div className="nav__btns d-lg-none" style={{position:"relative",right:"-85px"}}>
+          <div className="nav__btns d-lg-none"  style={{position:"relative",right:"-45px"}}>
             {/* Theme change button */}
             <i
               className={`ri-moon-line change-theme ${currentIcon}`}
@@ -92,8 +91,8 @@ console.log(location.pathname)
             ></i>
           </div>
           <button
-          style={{position:"relative",right:"10px"}}
-            className="border-0 d-lg-none bg-transparent"
+           style={{position:"relative"}}
+            className="border-0 d-lg-none bg-transparent pe-3"
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#navbarText"
