@@ -79,6 +79,10 @@ const AdminSidebar = ({children}) => {
 
     const dispatch = useDispatch()
 
+    // if(filter=="/AdminLogout"){
+    //     navigate("/")
+    // }
+
     useEffect(()=>{
         dispatch(getAllPlantsFunction)
     },[])

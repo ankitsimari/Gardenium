@@ -25,7 +25,7 @@ export const AdminEditProduct=()=>{
          title:name,price,category,description:about,image
      }
    dispatch(editAdminProduct(id,userData))
-
+      navigate("/admin")
    //setTimeout(()=>{Navigate(-1)},2000)
 
 
@@ -46,8 +46,8 @@ export const AdminEditProduct=()=>{
    //  console.log(id,"id from params")
  return(
     <DIV >
-     <div className='mt-4 text-center'>
-     <h1>Edit <span className="text-danger">Product</span></h1>
+     <div className='mt-4 text-center mt-5'>
+     <h1>Edit <span className="text ">Product</span></h1>
 
          <input className='form-control my-3' type="text" value={name} onChange={(e)=>{setName(e.target.value)}} />
 
@@ -92,15 +92,19 @@ export const AdminEditProduct=()=>{
 
   }
 
+  .text{
+    color: var(--first-color);
+  }
+
   button {
     width: 50%;
     height: 35px;
-    border:1px solid #DC3545;
-    background-color: #DC3545;
+    border:1px solid var(--first-color);
+    background-color: var(--first-color);
     color: white;
   }
   button:hover {
     background-color:white ;
-    color: #DC3545;
+    color: var(--first-color);
   }
  `

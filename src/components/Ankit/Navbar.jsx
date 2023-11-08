@@ -71,7 +71,7 @@ console.log(location.pathname)
 
 
 
-    <div style={{display:location.pathname=="/admin"?"none":""}}>
+    <div style={{display:location.pathname=="/admin" || "/adminEditProduct/:id"?"none":""}}>
       <nav className="navbar navbar-expand-lg sticky-top whiteBg"  >
         <div className="container text-black text-center text-md-start ">
           <Link
