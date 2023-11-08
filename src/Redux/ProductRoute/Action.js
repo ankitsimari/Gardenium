@@ -3,6 +3,7 @@ import {
   ADD_TO_CART_FAIL,
   ADD_TO_CART_REQ,
   ADD_TO_CART_SUCCESS,
+  ADMIN_GET_ALL_PLANTS,
   GET_All_PLANTS_FAIL,
   GET_All_PLANTS_REQ,
   GET_All_PLANTS_SUCCESS,
@@ -95,3 +96,68 @@ export const getAllPlantsFunction = (dispatch)=>{
 export const updateCartUi = (arr,sum) => (dispatch) => {
   dispatch({type:UPDATE_CART_UI,payload:arr,sum})
 };
+
+
+
+//change this route not putting the limit direct / route 
+
+export const getAdminData = (dispatch) => {
+  
+  axios
+    .get(`https://plant-api-opjp.onrender.com/plants/?limit=100`)
+    .then((res) => {
+     // console.log(res.data.plants,"adminhemanth");
+      dispatch({ type: ADMIN_GET_ALL_PLANTS, payload: res.data.plants });
+    })
+    .catch((err) => {
+      console.log(err,"err while fetching admin plants data")
+    });
+};
+
+
+export const addAdminProduct=(data)=>(dispatch)=>{
+
+  const token = localStorage.getItem("token");
+         // console.log(token);
+          const config = {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json"
+            },
+          };
+         // console.log(config, "con");
+        
+      
+        axios
+            .post(`https://plant-api-opjp.onrender.com/plants/add`,data, config)
+            .then((res) => {
+             // console.log(res, "newdata added");
+            })
+            .catch((err) => {
+           console.log(err,"err")
+            });
+}
+export const editAdminProduct=(id,data)=>(dispatch)=>{
+
+  const token = localStorage.getItem("token");
+         // console.log(token);
+          const config = {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json"
+            },
+          };
+         // console.log(config, "con");
+        
+      
+     axios
+            .patch(`https://plant-api-opjp.onrender.com/plants/update/${id}`,data, config)
+            .then((res) => {
+              console.log(res, "newdata added");
+            })
+            .catch((err) => {
+           console.log(err,"err")
+            });
+}
+
+

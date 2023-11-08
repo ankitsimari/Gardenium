@@ -8,6 +8,8 @@ import { useNavigate } from "react-router";
 import AOS from "aos"
 import 'aos/dist/aos.css'
 import Swal from "sweetalert2";
+import axios from "axios";
+import { addAdminProduct } from "../../../../Redux/ProductRoute/Action";
 
 const inintialState = {
   title: "",
@@ -32,13 +34,18 @@ export const AdminAddProduct = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(data);
+   // console.log(data)
     
     // dispatch(addAdminProduct(data)).then((res)=>{
     //     navigate("/AdminProductList")
     // })
+
+     dispatch(addAdminProduct(data))
+     
+
+ 
     
-    // setData(inintialState);
+     setData(inintialState);
 
     Swal.fire({
       title: 'Product Added Successfully',
@@ -46,6 +53,8 @@ export const AdminAddProduct = () => {
       icon: 'success', // Set the icon to 'success'
       confirmButtonColor: 'var(--first-color)'
     });
+
+  //  navigate("/admin")
     
   };
 
@@ -84,11 +93,11 @@ export const AdminAddProduct = () => {
         
         <select name="category" onChange={handleChange} className="form-control">
           <option value="">Select Category</option>
-          <option value="Fruits">medicinal</option>
-            <option value="Vegetables">herbs</option>
-            <option value="Chicken">flowers</option>
-            <option value="Seafood">vegetable</option>
-            <option value="Mutton">seeds</option>
+          <option value="medicinal">medicinal</option>
+            <option value="herbs">herbs</option>
+            <option value="flowers">flowers</option>
+            <option value="vegetable">vegetable</option>
+            <option value="seeds">seeds</option>
         </select>
         <input
           type="text"

@@ -21,6 +21,7 @@ import Stocks from './Pages/Stocks';
 import Sales from './Pages/Sales';
 import { AdminAddProduct } from './Pages/AdminAddProduct';
 import Reviews from './Pages/Reviews';
+import { ProductList } from './Pages/ProductList';
 
 
 const AdminSidebar = ({children}) => {
@@ -104,7 +105,7 @@ console.log(filter)
                }              
 
            </div>
-           <main >{filter=="/main"?<Dashboard/>:filter=="/stocks"?<Stocks/>:filter=="/sales"?<Sales/>:filter=="/AdminProduct"?<AdminAddProduct/>:filter=="/review"?<Reviews/>:"Nothing"}</main>
+           <main >{filter=="/main"?<Dashboard/>:filter=="/stocks"?<Stocks/>:filter=="/sales"?<Sales/>:filter=="/AdminProduct"?<AdminAddProduct/>:filter=="/review"?<Reviews/>:filter=="/AdminProductList"?<ProductList/>:"Nothing"}</main>
         </DIV>
     );
 };

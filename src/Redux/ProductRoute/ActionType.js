@@ -23,3 +23,4 @@ export const GET_All_PLANTS_FAIL = "GET_All_PLANTS_FAIL";
 
 //hemanth changes
 export const UPDATE_CART_UI="UPDATE_CART_UI";
+export const ADMIN_GET_ALL_PLANTS="ADMIN_GET_ALL_PLANTS";
