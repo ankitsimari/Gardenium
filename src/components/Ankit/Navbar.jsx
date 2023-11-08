@@ -71,7 +71,8 @@ console.log(location.pathname)
 
 
 
-    <div style={{display:location.pathname=="/admin" || "/adminEditProduct/:id"?"none":""}}>
+<div style={{ display: location.pathname === "/admin" || location.pathname.startsWith("/adminEditProduct/") ? "none" : "visible" }}>
+
       <nav className="navbar navbar-expand-lg sticky-top whiteBg"  >
         <div className="container text-black text-center text-md-start ">
           <Link

@@ -3,17 +3,22 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { getDataFunction } from "../../Redux/ProductRoute/Action";
 import axios from "axios";
-import Swal from 'sweetalert2';
-import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import Loader from "./Loader";
-
 
 export default function ProductCard() {
   const [page, setPage] = useState(1);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [category, setCategory] = useState(
+    searchParams.getAll("category") || []
+  );
+  const [order, setOrder] = useState(searchParams.get("order") || "");
   const data = useSelector((state) => state.PlantReducer.plants);
   const length = useSelector((state) => state.PlantReducer.plants.length);
   const loading = useSelector((state) => state.PlantReducer.isLoading);
   const totalPage = useSelector((state) => state.PlantReducer.totalPage);
+
   const all = useSelector((state) => state);
   console.log(all);
   console.log(totalPage);
@@ -25,7 +30,7 @@ export default function ProductCard() {
   };
 
   const handleNext = () => {
-    if (page < length-1) {
+    if (page < length - 1) {
       setPage((prev) => prev + 1);
     }
     window.scrollTo(0, 0);
@@ -37,95 +42,174 @@ export default function ProductCard() {
     window.scrollTo(0, 0);
   };
 
-  const navigate = useNavigate()
+  const handleSignlePage = (id) => {
+    navigate(`/signlePage/${id}`);
+  };
 
-  const handleAddToCart = (obj) => {
-    axios.post(`http://localhost:8080/cart/add`,obj).then((res)=>{
-    console.log(res.data);
-    if(res.data.err=="login_First"){
-      navigate("/loginPage")
-    }else{
-      Swal.fire({
-        title: 'Added to Cart',
-        text: 'Product Added to Cart Successfully!',
-        icon: 'success', // Set the icon to 'success'
-        confirmButtonColor: 'rgb(62,101,83)'
-      });
+  const navigate = useNavigate();
+
+  // sort
+
+  const handleOrder = (e) => {
+    const { value } = e.target;
+    setOrder(value);
+  };
+
+  // Filter
+
+  const handleFilter = (e) => {
+    const data = e.target.value;
+    const newCat = [...category];
+
+    if (newCat.includes(data)) {
+      const index = newCat.indexOf(data);
+      newCat.splice(index, 1);
+    } else {
+      newCat.push(data);
     }
+    setCategory(newCat);
+    setPage(1)
+  };
+  console.log(category);
 
-    }).catch(err=>{
-      console.log(err)
-    
-    })
-  }
 
-  const handleSignlePage = (id)=>{
-    navigate(`/signlePage/${id}`)
-  }
+
+  const paramsObj = {
+    params: {
+      category: searchParams.getAll("category"),
+      _order: searchParams.get("order"),
+    },
+  };
+
+  console.log(paramsObj);
 
   const dispatch = useDispatch();
 
+  // pagination
+
   useEffect(() => {
-    dispatch(getDataFunction(page));
-  }, [page]);
-
-  useEffect(()=>{
-    window.scrollTo(0, 0);
-  },[])
-
-  // console.log(data);
+    const updatedParamsObj = {
+      params: {
+        category,
+        _order: order,
+      },
+    };
+    dispatch(getDataFunction(page, updatedParamsObj));
+  }, [page, category, order]);
+  
   if (loading) {
-    return <Loader/>;
+    return <Loader />;
   }
 
   return (
     <DIV>
-      <div></div>
-
       <div className="container mt-5 pt-2">
+        <div className="mt-5 d-flex justify-content-center gap-3  ">
+          <select
+            className="px-2  option"
+            style={{ height: "40px", background: "transparent" }}
+          >
+            <option value="">Category</option>
+            <option value="flower">Flower</option>
+            <option value="seeds">Seeds</option>
+            <option value="medicinal">Medicinal</option>
+            <option value="vegetable">Vegetable</option>
+            <option value="herbs">Herbs</option>
+          </select>
+          <select
+            className="px-2  option"
+            style={{ height: "40px", background: "transparent" }}
+          >
+            <option value="">Price</option>
+            <option value="inc">Low to High</option>
+            <option value="desc">High to Low</option>
+          </select>
+        </div>
+
         <div className="row">
           <div className="col-md-2 d-none d-md-grid filter_part">
             <div>
               <h3 className="mt-5 pt-5 ">Category</h3>
               <span className="d-flex mt-4 p-0 m-0">
-                <input type="checkbox" className=" p-0 m-0" />
+                <input
+                  value="flowers"
+                  type="checkbox"
+                  onChange={handleFilter}
+                  className=" p-0 m-0"
+                  checked={category.includes("flowers")}
+                />
                 <label className="p-0 m-0 ms-3">Flower</label>
               </span>
 
               <span className="d-flex p-0 m-0">
-                <input type="checkbox" className="p-0 m-0" />
+                <input
+                  value="seeds"
+                  type="checkbox"
+                  onChange={handleFilter}
+                  className="p-0 m-0"
+                  checked={category.includes("seeds")}
+                />
                 <label className="p-0 m-0 ms-3">Seeds</label>
               </span>
 
               <span className="d-flex p-0 m-0">
-                <input type="checkbox" className="p-0 m-0" />
+                <input
+                  value="medicinal"
+                  type="checkbox"
+                  onChange={handleFilter}
+                  checked={category.includes("medicinal")}
+                  className="p-0 m-0"
+                />
                 <label className="p-0 m-0 ms-3">Medicinal</label>
               </span>
 
               <span className="d-flex p-0 m-0">
-                <input type="checkbox" className=" p-0 m-0" />
+                <input
+                  value="vegetable"
+                  type="checkbox"
+                  onChange={handleFilter}
+                  className=" p-0 m-0"
+                  checked={category.includes("vegetable")}
+                />
                 <label className="p-0 m-0 ms-3">Vegetable</label>
               </span>
 
               <span className="d-flex p-0 m-0">
-                <input type="checkbox" className="p-0 m-0 bg-danger" />
-                <label className="p-0 m-0 ms-3">Known</label>
+                <input
+                  value="herbs"
+                  type="checkbox"
+                  onChange={handleFilter}
+                  className="p-0 m-0 bg-danger"
+                  checked={category.includes("herbs")}
+                />
+                <label className="p-0 m-0 ms-3">Herbs</label>
               </span>
             </div>
 
-            <div>
-              <h3 className="mt-5">Price</h3>
-              <span className="mt-4 d-flex p-0 m-0">
-                <input type="radio" className="p-0 m-0" />
-                <label className="p-0 m-0 ms-3">Low-to-High</label>
-              </span>
-              <span className="d-flex p-0 m-0">
-                <input type="radio" className=" p-0 m-0 " />
-                <label className="p-0 m-0 ms-3">High-to-Low</label>
-              </span>
+            <div onChange={handleOrder}>
+              <h3 className="mt-5 ">Price</h3>
+              <input
+                className="form-check-input bg me-2"
+                data-testid="sort-asc"
+                type="radio"
+                name="sort"
+                value={"asc"}
+                defaultChecked={order === "asc"}
+              />
+              <label>Ascending</label>
+              <br />
+              <input
+                className="form-check-input bg me-2"
+                data-testid="sort-desc"
+                type="radio"
+                name="sort"
+                value={"desc"}
+                defaultChecked={order === "desc"}
+              />
+              <label>Descending</label>
             </div>
           </div>
-          <div className="col-md-10">
+          <div className="col-md-9">
             <div>
               <section className="product " id="products">
                 <div className="product__container grid">
@@ -137,11 +221,13 @@ export default function ProductCard() {
                         <img src={e.image} alt="" className="product__img" />
 
                         <h3 className="product__title">{e.title}</h3>
-        
 
                         <span className="product__price"> ₹5{e.price}</span>
 
-                        <button className="button--flex product__button" onClick={()=>handleSignlePage(e._id)}>
+                        <button
+                          className="button--flex product__button"
+                          onClick={() => handleSignlePage(e._id)}
+                        >
                           <i className="ri-shopping-bag-line"></i>
                         </button>
                       </article>
@@ -180,7 +266,7 @@ export default function ProductCard() {
                 </button>
               ))}
               <button
-                disabled={page == length-1}
+                disabled={page == length - 1}
                 className="pageBtn rounded px-2"
                 onClick={handleNext}
               >
@@ -195,13 +281,18 @@ export default function ProductCard() {
 }
 
 const DIV = styled.div`
-.filter_part{
-  position:fixed;
-  top: 80px;
-}
-.col-md-10{
-  margin-left:220px;
-}
+  .filter_part {
+    /* position: fixed; */
+    top: 80px;
+  }
+
+  .option {
+    color: var(--first-color);
+    border: 1px solid var(--first-color);
+  }
+  .col-md-10 {
+    margin-left: 220px;
+  }
 
   .product__description {
     text-align: center;
@@ -272,9 +363,9 @@ const DIV = styled.div`
       grid-template-columns: 0.6fr;
       justify-content: center;
     }
-    .col-md-10{
-  margin-left:0px;
-}
+    .col-md-10 {
+      margin-left: 0px;
+    }
   }
 
   @media screen and (min-width: 576px) {
@@ -286,9 +377,9 @@ const DIV = styled.div`
       justify-content: center;
       column-gap: 5rem;
     }
-    .col-md-10{
-  margin-left:0px;
-}
+    .col-md-10 {
+      margin-left: 0px;
+    }
   }
 
   /* For large devices */
@@ -312,8 +403,8 @@ const DIV = styled.div`
     .product__price {
       font-size: var(--normal-font-size);
     }
-    .col-md-10{
-  margin-left:150px;
-}
+    .col-md-10 {
+      margin-left: 150px;
+    }
   }
 `;

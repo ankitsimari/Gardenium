@@ -9,7 +9,7 @@ export default function Footer() {
     const location = useLocation();
 console.log(location.pathname)
   return (
-    <div style={{display:location.pathname=="/admin"|| "/adminEditProduct/:id"?"none":""}}>
+    <div style={{ display: location.pathname === "/admin" || location.pathname.startsWith("/adminEditProduct/") ? "none" : "visible" }}>
             <footer className="footer section">
             <div className="footer__container container grid">
                 <div className="footer__content">

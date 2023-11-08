@@ -17,10 +17,10 @@ import {
 } from "./ActionType";
 import { useSelector } from "react-redux";
 
-export const getDataFunction = (page) => (dispatch) => {
+export const getDataFunction = (page,paramsObj) => (dispatch) => {
   dispatch({ type: GET_PLANT_REQ });
   axios
-    .get(`https://plant-api-opjp.onrender.com/plants/?page=${page}&limit=6`)
+    .get(`https://plant-api-opjp.onrender.com/plants/?page=${page}&limit=6`,paramsObj)
     .then((res) => {
       console.log(res.data.PlantReducer);
       dispatch({ type: GET_PLANT_SUCCESS, payload: res.data });
