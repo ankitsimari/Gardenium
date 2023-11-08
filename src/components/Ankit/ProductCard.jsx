@@ -117,14 +117,14 @@ export default function ProductCard() {
             <option value="vegetable">Vegetable</option>
             <option value="herbs">Herbs</option>
           </select>
-          <select
+          {/* <select
             className="px-2  option"
             style={{ height: "40px", background: "transparent" }}
           >
             <option value="">Price</option>
             <option value="inc">Low to High</option>
             <option value="desc">High to Low</option>
-          </select>
+          </select> */}
         </div>
         </div>
     
