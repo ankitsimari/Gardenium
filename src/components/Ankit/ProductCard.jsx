@@ -104,13 +104,14 @@ export default function ProductCard() {
   return (
     <DIV>
       <div className="container mt-5 pt-2">
+        <div className="d-lg-none">
         <div className="mt-5 d-flex justify-content-center gap-3  ">
-          <select
+          <select onChange={handleFilter}
             className="px-2  option"
             style={{ height: "40px", background: "transparent" }}
           >
             <option value="">Category</option>
-            <option value="flower">Flower</option>
+            <option value="flowers">Flower</option>
             <option value="seeds">Seeds</option>
             <option value="medicinal">Medicinal</option>
             <option value="vegetable">Vegetable</option>
@@ -125,10 +126,15 @@ export default function ProductCard() {
             <option value="desc">High to Low</option>
           </select>
         </div>
+        </div>
+    
 
         <div className="row">
-          <div className="col-md-2 d-none d-md-grid filter_part">
+          <div className="col-lg-2 d-none d-lg-grid mt-5 filter_part">
             <div>
+              <div>
+
+           
               <h3 className="mt-5 pt-5 ">Category</h3>
               <span className="d-flex mt-4 p-0 m-0">
                 <input
@@ -185,7 +191,6 @@ export default function ProductCard() {
                 <label className="p-0 m-0 ms-3">Herbs</label>
               </span>
             </div>
-
             <div onChange={handleOrder}>
               <h3 className="mt-5 ">Price</h3>
               <input
@@ -208,8 +213,9 @@ export default function ProductCard() {
               />
               <label>Descending</label>
             </div>
+            </div>
           </div>
-          <div className="col-md-9">
+          <div className="col-lg-9">
             <div>
               <section className="product " id="products">
                 <div className="product__container grid">

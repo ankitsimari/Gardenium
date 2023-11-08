@@ -83,7 +83,7 @@ export const getCartFunction = (dispatch) => {
 
 export const getAllPlantsFunction = (dispatch)=>{
   dispatch({ type: GET_All_PLANTS_REQ})
-  axios.get('https://plant-api-opjp.onrender.com/plants/?limit=30').then((res)=>{
+  axios.get('https://plant-api-opjp.onrender.com/plants/').then((res)=>{
     console.log(res.data)
     dispatch({ type: GET_All_PLANTS_SUCCESS,payload:res.data})
   }).catch((err)=>{
@@ -104,7 +104,7 @@ export const updateCartUi = (arr,sum) => (dispatch) => {
 export const getAdminData = (dispatch) => {
   
   axios
-    .get(`https://plant-api-opjp.onrender.com/plants/?limit=100`)
+    .get(`https://plant-api-opjp.onrender.com/plants/`)
     .then((res) => {
      // console.log(res.data.plants,"adminhemanth");
       dispatch({ type: ADMIN_GET_ALL_PLANTS, payload: res.data.plants });
