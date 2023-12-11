@@ -17,19 +17,8 @@ Welcome to Gardanium, your ultimate destination for greenery enthusiasts! Whethe
 3. [Admin Panel](#admin-panel)
    - [CRUD Operations](#crud-operations)
    - [Charts Integration](#charts-integration)
-4. [Contributing](#contributing)
-5. [License](#license)
 
-## Getting Started
 
-### Installation
-1. Clone the repository: `git clone https://github.com/yourusername/gardanium.git`
-2. Navigate to the project directory: `cd gardanium`
-3. Install dependencies: `npm install`
-4. Start the server: `npm start`
-
-### Usage
-Open your web browser and go to [http://localhost:3000](http://localhost:3000) to access Gardanium.
 
 ## Features
 
