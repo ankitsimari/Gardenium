@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { loginFunction } from '../../Redux/AuthRouter/action';
+import { loginFunction, signupFunction } from '../../Redux/AuthRouter/action';
 import Swal from 'sweetalert2';
 import {useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { LoginFail, LoginSuccess } from '../../Redux/AuthRouter/actionTypes';
 
 export default function Login() {
   const [isSignUpMode, setSignUpMode] = useState(false);
   const [email,setEmail]=useState("");
   const [password,setPassword]=useState("");
+  const [name,setName]=useState("");
 const dispatch = useDispatch();
 const navigate = useNavigate();
 
@@ -19,12 +22,95 @@ const navigate = useNavigate();
       navigate("/admin")
     }else{
 
-      dispatch(loginFunction({email,password}))
+     // dispatch(loginFunction({email,password}))
+
+     // user login , after successful req we are checking the response
+       // if => for wrong email alert
+       // else if => for wrong password alert
+       // else => login successful
+     let user={email,password}
+
+     axios
+     .post("https://plant-api-opjp.onrender.com/users/login", user)
+     .then((res) => {
+        console.log("login UPDate",res.data)
+
+        if(res.data.msg=="wrong email"){
+          Swal.fire({
+            title: 'Wrong Credentials ',
+            text: 'please enter valid Email!',
+            icon: 'error', 
+            confirmButtonColor: 'red'
+          });
+
+        }
+        else if(res.data.msg=="wrong password"){
+          Swal.fire({
+            title: 'Wrong Credentials ',
+            text: 'please enter valid password!',
+            icon: 'error', 
+            confirmButtonColor: 'red'
+          });
+
+        }else{
+         localStorage.setItem("token", res.data.token);
+           dispatch({ type:LoginSuccess , payload: res.data});
+
+        }
+        
+     })
+     .catch((err) => {
+       console.log(err,"err login")
+       dispatch({ type:LoginFail , payload: err.message });
+     })
+
     }
   }
+
+  const handleSignUp=(e)=>{
+  
+    e.preventDefault();
+    let user={
+      name,email,password
+    }
+
+      axios
+      .post("https://plant-api-opjp.onrender.com/users/signup", user)
+      .then((res) => {
+        console.log(res.data)
+        // if email alreday exists its will show alert 
+        if(res.data.userAlreadyPresent=="Yes"){
+          Swal.fire({
+            title: 'Email Already exist',
+            text: 'please Login!',
+            icon: 'warning', 
+            confirmButtonColor: 'red'
+          });
+        }
+        // if successfully register shows below alert
+        else{
+          Swal.fire({
+            title: 'registered Successful',
+            text: 'please Login!',
+            icon: 'success', 
+            confirmButtonColor: 'rgb(62,101,83)'
+          });
+          setSignUpMode(false)//this command for showing login form
+        }
+      })
+      .catch((err) => {
+       console.log(err)
+      });
+
+    }
+
+
+
+
+
   
   const all = useSelector((state)=>state.AuthReducer.token);
-  console.log(all)
+ // console.log(all)
 
   const isAuth = useSelector((state)=>state.AuthReducer.isAuth);
   if(isAuth){
@@ -41,6 +127,7 @@ const navigate = useNavigate();
   const toggleMode = () => {
     setSignUpMode(!isSignUpMode);
   };
+ 
 
   return (
     <DIV className='mt-5 pt-3'>
@@ -60,21 +147,21 @@ const navigate = useNavigate();
               <input type="submit" value="Login" className="btn solid" />
               {/* Add your social media icons and links here */}
             </form>
-            <form action="#" className={`sign-up-form${isSignUpMode ? '' : ' hide'}`}>
+            <form action="#" onSubmit={handleSignUp} className={`sign-up-form${isSignUpMode ? '' : ' hide'}`}>
               <h2 className="title">Sign up</h2>
               {/* Add your form input fields and buttons for sign-up here */}
               {/* Use onChange and value to manage form inputs */}
               <div className="input-field">
                 <i className="fas fa-user"></i>
-                <input type="text" placeholder="Username" />
+                <input type="text" placeholder="Username" value={name} onChange={(e)=>setName(e.target.value)}  />
               </div>
               <div className="input-field">
                 <i className="fas fa-envelope"></i>
-                <input type="email" placeholder="Email" />
+                <input type="email" placeholder="Email" value={email} onChange={(e)=>setEmail(e.target.value)} />
               </div>
               <div className="input-field">
                 <i className="fas fa-lock"></i>
-                <input type="password" placeholder="Password" />
+                <input type="password" placeholder="Password" value={password} onChange={(e)=>setPassword(e.target.value)}  />
               </div>
               <input type="submit" className="btn" value="Sign up" />
               {/* Add your social media icons and links here */}
