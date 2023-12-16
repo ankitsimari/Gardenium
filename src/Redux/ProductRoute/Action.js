@@ -39,6 +39,7 @@ export const addToCartFunction = (obj) => (dispatch) => {
     },
   };
   dispatch({ type: ADD_TO_CART_REQ });
+  delete obj._id
   axios
     .post(`https://plant-api-opjp.onrender.com/cart/add`, obj, config)
     .then((response) => {
