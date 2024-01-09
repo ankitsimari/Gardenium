@@ -114,14 +114,13 @@ const navigate = useNavigate();
 
   const isAuth = useSelector((state)=>state.AuthReducer.isAuth);
   if(isAuth){
-    
+    navigate(-1)
     Swal.fire({
       title: 'Login Successful',
       text: 'You are Logged in Successfully!',
       icon: 'success', // Set the icon to 'success'
       confirmButtonColor: 'rgb(62,101,83)'
     });
-    navigate(-1)
   }
 
   const toggleMode = () => {
