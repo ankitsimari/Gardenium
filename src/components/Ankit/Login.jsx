@@ -121,7 +121,7 @@ const navigate = useNavigate();
       icon: 'success', // Set the icon to 'success'
       confirmButtonColor: 'rgb(62,101,83)'
     });
-    navigate("/")
+    navigate()
   }
 
   const toggleMode = () => {

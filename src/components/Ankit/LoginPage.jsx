@@ -5,9 +5,6 @@ import axios from 'axios'
 import Swal from 'sweetalert2';
 export default function LoginPage() {
   
-
-
-
   const [email, setEmail]=useState("")
   const [password, setPassword]=useState("")
 
@@ -32,7 +29,7 @@ export default function LoginPage() {
             icon: 'success', // Set the icon to 'success'
             confirmButtonColor: 'rgb(62,101,83)'
           });
-          navigate("/")
+          navigate(-1);
         }else{
           Swal.fire({
             title: 'Wrong credentials',
